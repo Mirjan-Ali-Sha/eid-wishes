@@ -275,9 +275,9 @@ function generateShareImage(type) {
         }
         lines.push(line.trim());
         
-        // Safely extract the font size (e.g. from 'bold 64px Outfit')
-        const match = font.match(/\d+/);
-        const fontSize = match ? parseInt(match[0]) : 30;
+        // Safely extract the font size (e.g. from 'bold 64px Outfit' or '600 36px Outfit')
+        const match = font.match(/(\d+)px/);
+        const fontSize = match ? parseInt(match[1]) : 30;
         const lineH = fontSize * 1.5;
 
         for (const l of lines) {
@@ -420,8 +420,19 @@ function initShare() {
                         files: [file]
                     });
                     shareSuccess = true;
+                    // IF we successfully shared, return immediately and reset button
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                    return;
                 }
-            } catch(e) { console.warn('File share skipped/failed', e); }
+            } catch(e) { 
+                if (e.name === 'AbortError') {
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                    return; // User intentionally cancelled Native Share
+                }
+                console.warn('File share skipped/failed', e); 
+            }
 
             // 2. Try Text-only Web Share API
             if (!shareSuccess) {
@@ -430,8 +441,19 @@ function initShare() {
                         await navigator.share({ title: 'Eid Mubarak 2026', text: text, url: window.location.href });
                         if (blob) downloadBlob(blob, filename); // Deliver the image anyways
                         shareSuccess = true;
+                        
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                        return;
                     }
-                } catch(e) { console.warn('Text share skipped/failed', e); }
+                } catch(e) { 
+                    if (e.name === 'AbortError') {
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                        return; // User intentionally cancelled Native Share
+                    }
+                    console.warn('Text share skipped/failed', e); 
+                }
             }
 
             // 3. Absolute Fallback (Clipboard + Download)
