@@ -261,7 +261,11 @@ function generateShareImage(type) {
         }
         lines.push(line.trim());
         
-        const lineH = parseInt(font) * 1.5;
+        // Safely extract the font size (e.g. from 'bold 64px Outfit')
+        const match = font.match(/\d+/);
+        const fontSize = match ? parseInt(match[0]) : 30;
+        const lineH = fontSize * 1.5;
+
         for (const l of lines) {
             ctx.fillText(l, cx, y);
             y += lineH;
