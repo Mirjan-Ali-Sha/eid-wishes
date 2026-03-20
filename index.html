@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Eid Mubarak 2026 — Wishes & Invitation</title>
+    <meta name="description" content="Celebrate Eid ul-Fitr 2026 and Chand Raat with beautiful wishes, greetings, and invitations. Share the joy with your loved ones!">
+    <meta name="theme-color" content="#0a0a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-512.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/icon-512.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ═══ Starfield Canvas ═══ -->
+    <canvas id="starfield"></canvas>
+
+    <!-- ═══ Floating Particles ═══ -->
+    <div id="particles"></div>
+
+    <!-- ═══ Navigation ═══ -->
+    <nav class="nav-bar" id="nav-bar">
+        <button class="nav-btn active" data-page="chand-raat" id="nav-chand-raat">
+            <span class="nav-icon">🌙</span>
+            <span class="nav-label">Chand Raat</span>
+        </button>
+        <button class="nav-btn" data-page="eid" id="nav-eid">
+            <span class="nav-icon">🕌</span>
+            <span class="nav-label">Eid Mubarak</span>
+        </button>
+    </nav>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- PAGE 1: CHAND RAAT                 -->
+    <!-- ═══════════════════════════════════ -->
+    <main class="page active" id="page-chand-raat">
+        <div class="hero-section">
+            <div class="crescent-moon" id="crescent-anim">
+                <div class="moon-glow"></div>
+                <div class="moon-body">🌙</div>
+            </div>
+            <h1 class="hero-title amiri">چاند رات مبارک</h1>
+            <p class="hero-subtitle">Chand Raat Mubarak</p>
+            <p class="hero-date">29 Ramadan · March 20, 2026</p>
+        </div>
+
+        <!-- Shareable Card -->
+        <section class="wish-card glass" id="chand-raat-shareable">
+            <div class="card-inner">
+                <div class="card-glow-border"></div>
+                <div class="card-decoration">✨</div>
+                <h2 class="card-title">A Night of Joy & Blessings</h2>
+                <p class="card-verse amiri">اللّٰهُمَّ أَهِلَّهُ عَلَيْنَا بِالْأَمْنِ وَالْإِيمَانِ وَالسَّلَامَةِ وَالْإِسْلَامِ</p>
+                <p class="card-translation">"O Allah, bring this moon upon us with security, faith, safety, and Islam."</p>
+                <div class="card-divider"></div>
+                <p class="card-message">
+                    As the blessed crescent of Shawwal graces the sky tonight, may its gentle light fill your heart with peace, 
+                    your home with warmth, and your life with countless blessings.
+                </p>
+                <p class="card-message highlight">
+                    🌟 May your mehndi be beautiful, your bangles sparkle, and your heart be filled with happiness tonight! 🌟
+                </p>
+                <div class="card-watermark">chandraat.wishes</div>
+            </div>
+        </section>
+
+        <section class="wish-card glass" id="chand-raat-dua">
+            <div class="card-inner">
+                <div class="card-glow-border"></div>
+                <div class="card-decoration">🤲</div>
+                <h2 class="card-title">Chand Raat Duas</h2>
+                <p class="card-verse amiri">رَبَّنَا تَقَبَّلْ مِنَّا ۖ إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ</p>
+                <p class="card-translation">"Our Lord, accept [this] from us. Indeed, You are the All-Hearing, the All-Knowing."</p>
+                <div class="card-divider"></div>
+                <p class="card-message">
+                    May Allah accept all our fasts, prayers, and good deeds from this Ramadan. 
+                    May He forgive our shortcomings and grant us the strength to continue on the path of righteousness.
+                </p>
+            </div>
+        </section>
+
+        <div class="share-section">
+            <button class="share-btn golden pulse-glow" id="share-chand-raat-img">
+                <span>📸</span> Share as Image & Text
+            </button>
+        </div>
+    </main>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- PAGE 2: EID MUBARAK                -->
+    <!-- ═══════════════════════════════════ -->
+    <main class="page" id="page-eid">
+        <div class="hero-section eid-hero">
+            <div class="mosque-silhouette" id="mosque-anim">🕌</div>
+            <h1 class="hero-title amiri eid-title-color">عيد الفطر مبارك</h1>
+            <p class="hero-subtitle">Eid ul-Fitr Mubarak</p>
+            <p class="hero-date">1 Shawwal 1447 AH · March 21, 2026</p>
+            <div class="countdown-container glass-subtle" id="countdown-container">
+                <p class="countdown-label">Eid begins in</p>
+                <div class="countdown-timer" id="countdown-timer">
+                    <div class="countdown-unit">
+                        <span class="countdown-value" id="cd-hours">00</span>
+                        <span class="countdown-unit-label">Hours</span>
+                    </div>
+                    <span class="countdown-sep">:</span>
+                    <div class="countdown-unit">
+                        <span class="countdown-value" id="cd-minutes">00</span>
+                        <span class="countdown-unit-label">Minutes</span>
+                    </div>
+                    <span class="countdown-sep">:</span>
+                    <div class="countdown-unit">
+                        <span class="countdown-value" id="cd-seconds">00</span>
+                        <span class="countdown-unit-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shareable Eid Card -->
+        <section class="wish-card glass eid-card conditional-eid-card" id="eid-shareable">
+            <div class="card-inner">
+                <div class="card-glow-border"></div>
+                <div class="card-decoration">🎉</div>
+                <h2 class="card-title">Eid Mubarak!</h2>
+                <p class="card-verse amiri">تَقَبَّلَ اللّٰهُ مِنَّا وَمِنْكُمْ</p>
+                <p class="card-translation">"May Allah accept from us and from you."</p>
+                <div class="card-divider"></div>
+                <p class="card-message">
+                    On this blessed day of Eid ul-Fitr, I send you my warmest wishes and heartfelt prayers. 
+                    May this Eid bring immense joy, lasting peace, and abundant blessings to you and your family.
+                </p>
+                <p class="card-message">
+                    May the spirit of Ramadan continue to guide our hearts, 
+                    and may every moment of this Eid be a source of happiness and gratitude. 🌺
+                </p>
+                <div class="card-watermark">eid.mubarak.2026</div>
+            </div>
+        </section>
+
+        <!-- Invitation Card -->
+        <section class="wish-card glass invitation-card" id="eid-invitation">
+            <div class="card-inner">
+                <div class="card-glow-border green-glow"></div>
+                <div class="card-decoration">🎊</div>
+                <h2 class="card-title green-title">You're Invited!</h2>
+                <div class="invitation-details">
+                    <div class="inv-row">
+                        <span class="inv-icon">📅</span>
+                        <span class="inv-text">Saturday, March 21, 2026</span>
+                    </div>
+                    <div class="inv-row">
+                        <span class="inv-icon">🕐</span>
+                        <span class="inv-text">After Eid Salah</span>
+                    </div>
+                    <div class="inv-row">
+                        <span class="inv-icon">📍</span>
+                        <span class="inv-text">Our Home — You're always welcome!</span>
+                    </div>
+                    <div class="inv-row">
+                        <span class="inv-icon">🍽️</span>
+                        <span class="inv-text">Eid Feast & Celebration</span>
+                    </div>
+                </div>
+                <div class="card-divider green-divider"></div>
+                <p class="card-message" style="text-align: center;">
+                    Join us in celebrating this beautiful occasion with delicious food, 
+                    warm company, and lots of joy. Your presence would make our Eid complete! 💖
+                </p>
+            </div>
+        </section>
+
+        <section class="wish-card glass conditional-eid-card" id="eid-dua-card">
+            <div class="card-inner">
+                <div class="card-glow-border"></div>
+                <div class="card-decoration">🕋</div>
+                <h2 class="card-title">Eid Greetings</h2>
+                <p class="card-verse amiri">كُلُّ عَامٍ وَأَنْتُمْ بِخَيْرٍ</p>
+                <p class="card-translation">"May you be blessed every year."</p>
+                <div class="card-divider"></div>
+                <p class="card-message">
+                    As families gather and hearts rejoice, may the blessings of Allah 
+                    fill your life with happiness, prosperity, and good health. 
+                    Wishing you and your loved ones a truly memorable Eid! 🌟
+                </p>
+            </div>
+        </section>
+
+        <div class="share-section">
+            <button class="share-btn golden pulse-glow conditional-eid-card" id="share-eid-img">
+                <span>📸</span> Share Eid Wish
+            </button>
+            <button class="share-btn green-btn pulse-glow-green" id="share-invitation-img">
+                <span>💌</span> Share Invitation
+            </button>
+        </div>
+    </main>
+
+    <!-- ═══ Toast ═══ -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ═══ Footer ═══ -->
+    <footer class="site-footer">
+        <p>Made with ❤️ & Dua</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
