@@ -493,7 +493,7 @@ function initDynamicRouting() {
 }
 
 // ══════════════════════════════════════
-// HOVER STARS EFFECT
+// HOVER & TOUCH STARS EFFECT
 // ══════════════════════════════════════
 function initHoverStars() {
     let lastTime = 0;
@@ -502,9 +502,9 @@ function initHoverStars() {
     container.style.cssText = 'position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden;';
     document.body.appendChild(container);
 
-    document.addEventListener('mousemove', e => {
+    function spawnStar(x, y, force = false) {
         const now = Date.now();
-        if (now - lastTime < 40) return;
+        if (!force && now - lastTime < 40) return;
         lastTime = now;
 
         const star = document.createElement('div');
@@ -512,14 +512,31 @@ function initHoverStars() {
         const types = ['✨', '⭐', '✧'];
         star.textContent = types[Math.floor(Math.random() * types.length)];
         
-        star.style.left = e.clientX + 'px';
-        star.style.top = e.clientY + 'px';
+        star.style.left = x + 'px';
+        star.style.top = y + 'px';
         star.style.setProperty('--tx', (Math.random() - 0.5) * 80 + 'px');
         star.style.setProperty('--ty', (Math.random() - 0.5) * 80 - 20 + 'px');
         star.style.setProperty('--rot', (Math.random() - 0.5) * 180 + 'deg');
 
         container.appendChild(star);
         setTimeout(() => { if (star.parentNode) star.remove(); }, 1200);
+    }
+
+    // Mouse Tracking
+    document.addEventListener('mousemove', e => spawnStar(e.clientX, e.clientY));
+
+    // Mobile Touch Dragging
+    document.addEventListener('touchmove', e => {
+        if (e.touches.length > 0) {
+            spawnStar(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    }, { passive: true });
+
+    // Click/Tap Star Burst
+    document.addEventListener('click', e => {
+        for (let i = 0; i < 6; i++) {
+            setTimeout(() => spawnStar(e.clientX, e.clientY, true), i * 20);
+        }
     });
 }
 
