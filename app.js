@@ -101,14 +101,28 @@ function initParticles() {
 function initNavigation() {
     const navBtns = document.querySelectorAll('.nav-btn');
     const pages = document.querySelectorAll('.page');
+    
     navBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const targetPage = btn.dataset.page;
             navBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            
             pages.forEach(p => p.classList.remove('active'));
             const target = $(`page-${targetPage}`);
             if (target) target.classList.add('active');
+            
+            // Adjust the URL to support deep linking for the shared card!
+            history.replaceState(null, null, `#${targetPage}`);
+
+            // Toggle force-show-eid-btn based on active page
+            const forceShowBtn = document.getElementById('force-show-eid-btn');
+            if (forceShowBtn && !forceShowBtn.dataset.clicked) {
+                const today = new Date();
+                const isEid = today >= new Date('2026-03-21T00:00:00');
+                forceShowBtn.style.display = (!isEid && targetPage === 'eid') ? 'block' : 'none';
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
@@ -290,7 +304,7 @@ function generateShareImage(type) {
     // 5. Build Layouts
     if (type === 'chand-raat') {
         currY = writeCenter('🌙', currY - 60, '80px serif', '#fff') + 20;
-        currY = writeCenter('Chand Raat Duas', currY, 'bold 64px Outfit, sans-serif', '#f5d782') + 40;
+        currY = writeCenter('Chand Raat Mubarak', currY, 'bold 64px Outfit, sans-serif', '#f5d782') + 40;
         
         const dua = "اللّٰهُمَّ أَهِلَّهُ عَلَيْنَا بِالْأَمْنِ وَالْإِيمَانِ وَالسَّلَامَةِ وَالْإِسْلَامِ";
         currY = writeCenter(dua, currY, 'bold 58px Amiri, serif', '#f5d782') + 20;
@@ -474,22 +488,51 @@ function initDynamicRouting() {
     const eidStart = new Date('2026-03-21T00:00:00');
     const isEid = today >= eidStart;
     
+    // Check hash for deep-linked shares!
+    let activePage = isEid ? 'eid' : 'chand-raat';
+    const hash = window.location.hash;
+    if (hash === '#eid' || hash === '#chand-raat') {
+        activePage = hash.substring(1);
+    } else {
+        // default inject hash
+        history.replaceState(null, null, `#${activePage}`);
+    }
+    
     // Clear all actives
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 
-    if (isEid) {
-        document.querySelector('.nav-btn[data-page="eid"]').classList.add('active');
-        document.getElementById('page-eid').classList.add('active');
-    } else {
-        document.querySelector('.nav-btn[data-page="chand-raat"]').classList.add('active');
-        document.getElementById('page-chand-raat').classList.add('active');
-    }
+    const navElement = document.querySelector(`.nav-btn[data-page="${activePage}"]`);
+    if (navElement) navElement.classList.add('active');
+    
+    const pageElement = document.getElementById(`page-${activePage}`);
+    if (pageElement) pageElement.classList.add('active');
 
-    // Toggle conditional greet cards
+    // Toggle conditional greet cards based strictly on date
     document.querySelectorAll('.conditional-eid-card').forEach(el => {
         el.style.display = isEid ? '' : 'none';
     });
+
+    // Toggle the Force Show button (ONLY display on the Eid page)
+    const forceShowBtn = document.getElementById('force-show-eid-btn');
+    if (forceShowBtn) {
+        forceShowBtn.style.display = (!isEid && activePage === 'eid') ? 'block' : 'none';
+        
+        forceShowBtn.addEventListener('click', () => {
+            // Unhide the cards
+            document.querySelectorAll('.conditional-eid-card').forEach(el => {
+                el.style.display = '';
+            });
+            // Hide the button forever
+            forceShowBtn.style.display = 'none';
+            forceShowBtn.dataset.clicked = 'true';
+            
+            setTimeout(() => {
+                const wishCard = document.getElementById('eid-shareable');
+                if (wishCard) wishCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        });
+    }
 }
 
 // ══════════════════════════════════════
